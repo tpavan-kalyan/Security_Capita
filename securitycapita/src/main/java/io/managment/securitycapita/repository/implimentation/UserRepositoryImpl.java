@@ -1,15 +1,16 @@
 package io.managment.securitycapita.repository.implimentation;
 
-import static io.managment.securitycapita.enums.RoleType.*;
-import static io.managment.securitycapita.enums.VerificationType.*;
-import static io.managment.securitycapita.query.UserQuery.*;
+import static io.managment.securitycapita.enums.RoleType.ROLE_USER;
+import static io.managment.securitycapita.enums.VerificationType.ACCOUNT;
+import static io.managment.securitycapita.query.UserQuery.COUNT_USER_EMAIL_QUERY;
+import static io.managment.securitycapita.query.UserQuery.INSERT_ACCOUNT_VERIFICATION_URL_QUERY;
+import static io.managment.securitycapita.query.UserQuery.INSERT_USER_QUERY;
 
 import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -115,7 +116,7 @@ public class UserRepositoryImpl implements UserRepository<User>
 				.addValue("firstName", user.getFirstName())
 				.addValue("lastName", user.getLastName())
 				.addValue("email", user.getEmail())
-				.addValue("email", encoder.encode(user.getPassword()));
+				.addValue("password", encoder.encode(user.getPassword()));
 	}
 	
 	private String getVerificationUrl(String key, String type) {
